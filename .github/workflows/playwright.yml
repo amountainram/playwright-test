@@ -22,6 +22,8 @@ jobs:
         run: yarn install --immutable
 
       - name: Run Playwright tests
+        env:
+          HOME: /root
         run: yarn playwright test
 
       - uses: actions/upload-artifact@v3
