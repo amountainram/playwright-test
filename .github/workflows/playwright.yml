@@ -7,16 +7,39 @@ on:
     branches:
       - main
 jobs:
-  test:
-    timeout-minutes: 60
-    container: mcr.microsoft.com/playwright:v1.30.0-focal
-    runs-on: ubuntu-20.04
+  test-version:
+    runs-on: ubuntu-latest
+    outputs:
+      playwright-version: ${{steps.dep-version.outputs.playwright-version}}
     steps:
       - uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: yarn
+      
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Find Playwright version
+        id: dep-version
+        run: |
+          echo "playwright-version=$(yarn dep-version @playwright/test)" >> $GITHUB_OUTPUT
+
+  test:
+    needs:
+      - test-version
+    timeout-minutes: 60
+    container: mcr.microsoft.com/playwright:v${{needs.test-version.outpus.playwright-version}}-focal
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
 
       - name: Install dependencies
         run: yarn install --immutable

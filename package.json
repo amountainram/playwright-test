@@ -1,7 +1,13 @@
 {
   "name": "playwright-test",
   "packageManager": "yarn@3.5.0",
+  "scripts": {
+    "dep-version": "ts-node scripts/dep-version.ts"
+  },
   "devDependencies": {
-    "@playwright/test": "1.30.0"
+    "@playwright/test": "^1.32.3",
+    "commander": "^10.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
   }
 }
