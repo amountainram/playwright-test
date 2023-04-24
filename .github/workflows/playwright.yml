@@ -21,9 +21,6 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Install Playwright Browsers
-        run: yarn playwright install --with-deps
-
       - name: Run Playwright tests
         run: yarn playwright test
 
