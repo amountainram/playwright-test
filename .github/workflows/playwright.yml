@@ -31,7 +31,7 @@ jobs:
     needs:
       - test-version
     timeout-minutes: 60
-    container: mcr.microsoft.com/playwright:v${{needs.test-version.outpus.playwright-version}}-focal
+    container: mcr.microsoft.com/playwright:v${{needs.test-version.outputs.playwright-version}}-focal
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
